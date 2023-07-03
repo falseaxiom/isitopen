@@ -19,14 +19,21 @@ function refreshTime() {
     const formattedString = dateString.replace(", ", " - ");
     // document.getElementById("time").textContent = formattedString;
 
+    // format date
     var day = weekday[datetime.getDay()];
     var month = months[datetime.getMonth()];
     var date = datetime.getDate();
     var hr = datetime.getHours();
     var min = datetime.getMinutes();
-    var ampm = hr % 12 == 0 ? "am" : "pm";
+    var ampm = hr / 12 == 0 ? "am" : "pm";
 
-    var fulldate = day + ", " + month + " " + date + " - " + (hr%12) + ":" + min + ampm;
+    // adjust for edge cases
+    hr = hr % 12;
+    if (hr == 0) hr = 12;
+    if (min < 10) min = "0" + min;
+
+    // display formatted date
+    var fulldate = day + ", " + month + " " + date + " - " + hr + ":" + min + ampm;
     timeDisplay.textContent = fulldate;
 
     // find seconds since midnight ratio
@@ -39,7 +46,7 @@ function refreshTime() {
     var ratio = diff / 86400;
 
     for (var i = 0; i < tickers.length; i++) {
-        tickers[i].style.top = "calc(" + ratio + " * 100%)";
+        tickers[i].style.top = "calc(4% + " + ratio + " * 96%)";
     }
 }
 setInterval(refreshTime, 1000);
@@ -86,7 +93,7 @@ function popCalHrs(hrsId) {
         var calhr = document.createElement("div");
         var hrnum = (i-1) % 12;
         if (hrnum == 0) hrnum = 12;
-        var ampm = (i-1) % 12 == 0 ? "am" : "pm";
+        var ampm = i-1 < 12 ? "am" : "pm";
 
         if (i != 0) calhr.innerText = hrnum + ampm;
 
@@ -96,6 +103,7 @@ function popCalHrs(hrsId) {
     }
 }
 popCalHrs("studycalhrs");
+popCalHrs("snackcalhrs");
 
 /***** TAB FUNCTIONALITY *****/
 
