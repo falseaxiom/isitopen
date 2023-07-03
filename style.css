@@ -1,0 +1,167 @@
+/* GENERAL STUFF */
+:root {
+    --red: #8e0000;
+    --blue: #01185c;
+
+    --text: #01185c;
+    --closed: #dbdbdb;
+    --open: #8e0000;
+}
+body {
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    background: var(--text);
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.75rem;
+    font-weight: 400;
+}
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.container {
+    position: absolute;
+    width: 90%;
+    height: 90vh;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -45vh;
+    margin-left: -45%;
+}
+.hidden {
+    display: none;
+    width: 0;
+}
+
+/* MAIN DIVISIONS */
+.titlebox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.meat {
+    width: 100%;
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+.credits {
+    text-align: center;
+}
+
+/* TABS & WINDOWS */
+.tabs {
+    position: relative;
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.tab {
+    position: relative;
+    width: calc(100% - 20px);
+    height: 40px;
+    padding: 12px 10px 8px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px 0 0 10px;
+    background: white;
+    color: var(--text);
+    text-align: center;
+}
+.inactive {
+    background: var(--red);
+    color: white;
+}
+.window {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    background: white;
+    color: var(--blue);
+    padding: 50px;
+    border-radius: 0 10px 10px 10px;
+}
+
+/* CALENDARS */
+.calhrs {
+    position: relative;
+    width: 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+.calhr {
+    /* width: calc(100% - 20px); */
+    width: auto;
+    height: calc(100% / 25.0);
+    margin: -5px 10px 5px 10px;
+    font-size: .7rem;
+}
+.calendar {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    padding: 1px;
+}
+.calcol {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.calcoltitle {
+    width: 100%;
+    height: calc(100% / 25.0);
+    margin: 1px 1px;
+}
+.hour {
+    width: calc(100% - 2px);
+    height: calc(100% / 25.0);
+    margin: 1px 1px;
+    background: var(--closed);
+}
+.open {
+    background: var(--open);
+}
+
+/* TICKER */
+.ticker {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    margin-left: -1px;
+    background: red;
+}
+.tickerhandle {
+    width: 8px;
+    height: 8px;
+    border-radius: 100px;
+    background: red;
+    margin-top: -3px;
+    margin-left: -8px;
+}

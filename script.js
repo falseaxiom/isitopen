@@ -1,0 +1,130 @@
+/***** DATE AND TIME *****/
+
+// get local datetime
+var datetime = new Date();
+console.log(datetime);
+
+// refresh datetime appropriately
+// and change ticker location
+var tickers = document.getElementsByClassName("ticker");
+const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+function refreshTime() {
+    const timeDisplay = document.getElementById("time");
+
+    // refresh page if past midnight
+    var oldtime = datetime;
+    datetime = new Date();
+    if (oldtime.getHours() > datetime.getHours()) location.reload();
+
+    const dateString = datetime.toLocaleString();
+    const formattedString = dateString.replace(", ", " - ");
+    // document.getElementById("time").textContent = formattedString;
+
+    var day = weekday[datetime.getDay()];
+    var month = months[datetime.getMonth()];
+    var date = datetime.getDate();
+    var hr = datetime.getHours();
+    var min = datetime.getMinutes();
+    var ampm = hr % 12 == 0 ? "am" : "pm";
+
+    var fulldate = day + ", " + month + " " + date + " - " + (hr%12) + ":" + min + ampm;
+    timeDisplay.textContent = fulldate;
+
+    // find seconds since midnight ratio
+    var midnight = new Date(
+        datetime.getFullYear(),
+        datetime.getMonth(),
+        datetime.getDate(),
+        0,0,0);
+    var diff =  (datetime - midnight) / 1000;
+    var ratio = diff / 86400;
+
+    for (var i = 0; i < tickers.length; i++) {
+        tickers[i].style.top = "calc(" + ratio + " * 100%)";
+    }
+}
+setInterval(refreshTime, 1000);
+
+/***** CALENDAR FUNCTIONALITY *****/
+
+// check whether open at that time
+const libHours = {
+    "biotech": [[10,18],[8,23],[8,23],[8,23],[8,23],[8,22],"x"],
+    "fisher": ["x",[9,18],[9,18],[9,18],[9,18],[9,17],"x"],
+    "huntsman": [[7,22],[7,22],[7,22],[7,22],[7,22],[7,22],[7,22]],
+    "tangen": [[7,22],[7,22],[7,22],[7,22],[7,22],[7,22],[7,22]],
+    "vp": [[10,18],[9,18],[9,18],[9,18],[9,18],[9,18],[10,18]],
+
+    "pottruck":[[9,20],[6,22],[6,22],[6,22],[6,22],[6,22],[8,20]]
+}
+function isOpen(colId, hr) {
+    var col = document.getElementById(colId);
+
+    var day = datetime.getDay();  // 0 is sunday
+    var lib = libHours[colId];
+
+    if (lib[day] == "x") return false;
+    else {
+        return (hr >= lib[day][0] && hr < lib[day][1]);
+    }
+}
+
+// populate calcols with hours
+function popCalCol(colId) {
+    var col = document.getElementById(colId);
+    for (var i = 0; i < 24; i++) {
+        var hour = document.createElement("div");
+
+        hour.classList.add("hour");
+        if (isOpen(colId, i)) hour.classList.add("open");
+
+        col.appendChild(hour);
+    }
+}
+popCalCol("biotech");
+popCalCol("fisher");
+popCalCol("huntsman");
+popCalCol("tangen");
+popCalCol("vp");
+popCalCol("pottruck");
+
+// populate calhrs for reference
+function popCalHrs(hrsId) {
+    var calhrs = document.getElementById(hrsId);
+    for (var i = 0; i < 25; i++) {
+        var calhr = document.createElement("div");
+        var hrnum = (i-1) % 12;
+        if (hrnum == 0) hrnum = 12;
+        var ampm = (i-1) % 12 == 0 ? "am" : "pm";
+
+        if (i != 0) calhr.innerText = hrnum + ampm;
+
+        calhr.classList.add("calhr");
+
+        calhrs.appendChild(calhr);
+    }
+}
+popCalHrs("studycalhrs");
+
+/***** TAB FUNCTIONALITY *****/
+
+var activeTab = "studytab"
+function setActiveTab(clickedTab) {
+    if (clickedTab == activeTab) return;
+
+    // switch active window
+    if (clickedTab == "snacktab") {
+        document.getElementById("studywindow").className = "hidden";
+        document.getElementById("snackwindow").className = "window";
+    }
+    else {
+        document.getElementById("studywindow").className = "window";
+        document.getElementById("snackwindow").className = "hidden";
+    }
+
+    // switch active tab
+    document.getElementById(activeTab).classList.add("inactive");
+    document.getElementById(clickedTab).classList.remove("inactive");
+    activeTab = clickedTab;
+}
