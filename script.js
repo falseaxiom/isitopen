@@ -25,7 +25,7 @@ function refreshTime() {
     var date = datetime.getDate();
     var hr = datetime.getHours();
     var min = datetime.getMinutes();
-    var ampm = hr / 12 == 0 ? "am" : "pm";
+    var ampm = hr < 12 ? "am" : "pm";
 
     // adjust for edge cases
     hr = hr % 12;
@@ -71,12 +71,22 @@ function isOpen(colId, hr) {
 function popCalCol(colId) {
     var col = document.getElementById(colId);
     for (var i = 0; i < 24; i++) {
+        // create hour div
         var hour = document.createElement("div");
-
         hour.classList.add("hour");
-        if (isOpen(colId, i)) hour.classList.add("open");
-
         col.appendChild(hour);
+
+        // put 2 half-hour divs inside hour div
+        var half1 = document.createElement("div");
+        half1.classList.add("halfhour");
+        if (isOpen(colId, i)) half1.classList.add("open");
+        hour.appendChild(half1);
+        var half2 = document.createElement("div");
+        half2.classList.add("halfhour");
+        if (isOpen(colId, i + 0.5)) half2.classList.add("open");
+        hour.appendChild(half2);
+
+        
     }
 }
 popCalCol("biotech");
