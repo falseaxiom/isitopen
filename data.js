@@ -1,5 +1,5 @@
-const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const libHours = {
     "biotech": [[10,18],[8,23],[8,23],[8,23],[8,23],[8,22],"x"],
