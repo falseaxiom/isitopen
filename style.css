@@ -6,6 +6,7 @@
     --closed: #CCCCCC;
     --open: #008E00;
     --link: #82AFD3;
+    --hover: #be1e1e;
 }
 body {
     font-family: 'Roboto', sans-serif;
@@ -100,6 +101,12 @@ a {
 .inactive {
     background: var(--red);
     color: white;
+    transition: 50ms 50ms;
+    border-color: var(--red);
+}
+.inactive:hover {
+    background: white;
+    color: var(--blue);
 }
 .window {
     position: relative;
