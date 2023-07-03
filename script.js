@@ -85,6 +85,10 @@ popCalCol("huntsman");
 popCalCol("tangen");
 popCalCol("vp");
 popCalCol("pottruck");
+popCalCol("acme");
+popCalCol("heirloom");
+popCalCol("tj");
+popCalCol("hengfa");
 
 // populate calhrs for reference
 function popCalHrs(hrsId) {
