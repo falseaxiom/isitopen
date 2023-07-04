@@ -34,7 +34,7 @@ function refreshTime() {
 
     // display formatted date
     var fulldate = day + ", " + month + " " + date + " - " + hr + ":" + min + ampm;
-    timeDisplay.textContent = fulldate;
+    timeDisplay.innerHTML = fulldate;
 
     // find seconds since midnight ratio
     var midnight = new Date(
